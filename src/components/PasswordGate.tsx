@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -7,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Heart, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
 
 interface RandomHeart {
   id: number;
@@ -52,15 +52,14 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
         errorAudioRef.current.currentTime = 0;
         errorAudioRef.current.play().catch(() => {
           // Playback might be blocked by browser if not triggered by interaction
-          // but handleVerify is triggered by button click/enter key
         });
       }
       
-      // Reset after 4 seconds
+      // Reset after 5 seconds to give time for the "angry" sequence
       setTimeout(() => {
         setIsRejected(false);
         setPassword("");
-      }, 4000);
+      }, 5000);
     }
   };
 
@@ -70,7 +69,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-background p-6 overflow-hidden">
-      {/* Hidden error audio - using a more reliable buzzer sound */}
+      {/* Rejection Sound Effect */}
       <audio 
         ref={errorAudioRef} 
         src="https://cdn.pixabay.com/audio/2022/03/24/audio_731478147d.mp3" 
@@ -84,35 +83,47 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.2 }}
-            className="text-center space-y-8 z-20"
+            className="text-center space-y-10 z-20 flex flex-col items-center max-w-lg"
           >
             <motion.div
               animate={{ 
                 rotate: [0, -10, 10, -10, 10, 0],
-                scale: [1, 1.2, 1]
+                scale: [1, 1.1, 1]
               }}
-              transition={{ duration: 0.5, repeat: Infinity }}
-              className="text-9xl"
+              transition={{ duration: 0.4, repeat: Infinity }}
+              className="relative w-64 h-64 drop-shadow-[0_0_30px_rgba(239,68,68,0.4)]"
             >
-              😡
+              <Image 
+                src="https://picsum.photos/seed/angry-boy-sticker/600/600" 
+                alt="Angry Sticker"
+                fill
+                className="object-contain"
+                data-ai-hint="angry boy"
+              />
             </motion.div>
+            
             <div className="space-y-4">
-              <h2 className="text-4xl font-bold text-destructive uppercase tracking-tighter">
+              <motion.h2 
+                animate={{ x: [-2, 2, -2, 2, 0] }}
+                transition={{ duration: 0.1, repeat: 10 }}
+                className="text-4xl md:text-5xl font-black text-destructive uppercase tracking-tighter leading-none"
+              >
                 GET OUT FROM THIS WEBSITE!
-              </h2>
-              <p className="text-2xl font-medium text-muted-foreground italic">
+              </motion.h2>
+              <p className="text-2xl font-bold text-muted-foreground italic bg-destructive/10 py-2 rounded-lg">
                 THIS IS NOT FOR YOU!
               </p>
             </div>
-            <div className="flex justify-center gap-4">
-              {Array.from({ length: 5 }).map((_, i) => (
+
+            <div className="flex justify-center gap-6">
+              {["😤", "😠", "😡", "💢", "👊"].map((emoji, i) => (
                 <motion.span
                   key={i}
-                  animate={{ y: [0, -20, 0] }}
-                  transition={{ delay: i * 0.1, repeat: Infinity }}
-                  className="text-4xl"
+                  animate={{ y: [0, -30, 0], rotate: [0, 10, -10, 0] }}
+                  transition={{ delay: i * 0.1, duration: 0.5, repeat: Infinity }}
+                  className="text-5xl"
                 >
-                  😤
+                  {emoji}
                 </motion.span>
               ))}
             </div>
