@@ -3,14 +3,11 @@
 
 import { motion } from "framer-motion";
 import { 
-  LayoutDashboard, 
   Users, 
   Heart, 
   Settings, 
-  ShieldCheck, 
   LogOut,
   BarChart3,
-  MessageSquareHeart,
   Camera,
   Activity
 } from "lucide-react";
@@ -27,8 +24,8 @@ export default function AdminPage() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <h1 className="text-3xl font-bold flex items-center gap-2">
-              <ShieldCheck className="text-primary w-8 h-8" /> Admin Control Center
+            <h1 className="text-3xl font-bold flex items-center gap-3">
+              <span className="text-4xl drop-shadow-[0_0_10px_rgba(209,64,180,0.5)]">❤️</span> Admin Control Center
             </h1>
             <p className="text-slate-400 mt-1">Managing the magic for Galu, Baby.</p>
           </motion.div>
@@ -94,7 +91,7 @@ export default function AdminPage() {
             <Card className="bg-slate-900/40 border-slate-800 backdrop-blur-md h-full">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <ShieldCheck className="text-primary w-5 h-5" /> Security Logs
+                  <span className="text-xl">🔒</span> Access Logs
                 </CardTitle>
                 <CardDescription className="text-slate-400">Recent entry attempts.</CardDescription>
               </CardHeader>

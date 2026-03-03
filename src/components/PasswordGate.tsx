@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock, Heart, ShieldAlert } from "lucide-react";
+import { Heart, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -20,7 +20,6 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
-    // Initialize random values on client only to avoid hydration mismatch
     setHeartProps(Array.from({ length: 15 }).map(() => ({
       x: Math.random() * 100 + "vw",
       yStart: "110vh",
@@ -52,11 +51,8 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
     setIsAngry(true);
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
-      audioRef.current.play().catch(() => {
-        // Fallback if browser blocks audio
-      });
+      audioRef.current.play().catch(() => {});
     }
-    // Reset after some time
     setTimeout(() => {
       setIsAngry(false);
       setPassword("");
@@ -85,11 +81,14 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
             className="w-full max-w-md p-8 text-center space-y-8 relative z-10"
           >
             <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 3, repeat: Infinity }}
+              animate={{ 
+                y: [0, -15, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
               className="w-24 h-24 bg-primary/10 rounded-3xl mx-auto flex items-center justify-center border border-primary/20 shadow-xl"
             >
-              <Lock className="text-primary w-12 h-12" />
+              <span className="text-6xl drop-shadow-lg">❤️</span>
             </motion.div>
 
             <div className="space-y-2">
@@ -128,7 +127,6 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
             exit={{ opacity: 0 }}
             className="fixed inset-0 flex flex-col items-center justify-center z-[200] bg-white"
           >
-            {/* Chaotic Background Stickers (Angry Emojis) */}
             <div className="absolute inset-0 pointer-events-none">
                {angryEmojiProps.map((prop, i) => (
                 <motion.div
@@ -152,47 +150,46 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
 
             <motion.div
               animate={{ 
-                x: [-10, 10, -10, 10, 0],
-                rotate: [-5, 5, -5, 5, 0]
+                x: [-15, 15, -15, 15, 0],
+                rotate: [-8, 8, -8, 8, 0]
               }}
               transition={{ duration: 0.1, repeat: Infinity }}
               className="text-center space-y-6 relative z-10"
             >
               <div className="relative mb-8 flex items-center justify-center">
                 <motion.div
-                  animate={{ scale: [1, 1.3, 1] }}
+                  animate={{ scale: [1, 1.4, 1] }}
                   transition={{ duration: 0.2, repeat: Infinity }}
-                  className="text-[10rem] sm:text-[15rem] drop-shadow-[0_0_50px_rgba(255,0,0,0.8)] select-none"
+                  className="text-[12rem] sm:text-[18rem] drop-shadow-[0_0_60px_rgba(255,0,0,0.9)] select-none"
                 >
                   😡
                 </motion.div>
                 <motion.div 
-                  animate={{ scale: [1, 1.5, 1], y: [-20, 0, -20] }}
+                  animate={{ scale: [1, 1.6, 1], y: [-30, 0, -30] }}
                   transition={{ duration: 0.4, repeat: Infinity }}
-                  className="absolute -top-10 -right-10 bg-red-600 text-white p-4 rounded-full shadow-2xl border-4 border-white"
+                  className="absolute -top-10 -right-10 bg-red-600 text-white p-5 rounded-full shadow-2xl border-4 border-white"
                 >
-                  <ShieldAlert size={48} />
+                  <ShieldAlert size={56} />
                 </motion.div>
               </div>
 
               <div className="space-y-4">
-                <h1 className="text-7xl md:text-9xl font-black text-red-600 uppercase tracking-tighter drop-shadow-lg">
+                <h1 className="text-7xl md:text-9xl font-black text-red-600 uppercase tracking-tighter drop-shadow-2xl">
                   GET OUT!
                 </h1>
-                <div className="flex justify-center gap-6">
-                   <motion.span animate={{ scale: [1, 2, 1] }} transition={{ repeat: Infinity, duration: 0.2 }} className="text-7xl">🤬</motion.span>
-                   <motion.span animate={{ scale: [1, 2, 1] }} transition={{ repeat: Infinity, duration: 0.2, delay: 0.05 }} className="text-7xl">💢</motion.span>
-                   <motion.span animate={{ scale: [1, 2, 1] }} transition={{ repeat: Infinity, duration: 0.2, delay: 0.1 }} className="text-7xl">👿</motion.span>
+                <div className="flex justify-center gap-8">
+                   <motion.span animate={{ scale: [1, 2.5, 1] }} transition={{ repeat: Infinity, duration: 0.2 }} className="text-8xl">🤬</motion.span>
+                   <motion.span animate={{ scale: [1, 2.5, 1] }} transition={{ repeat: Infinity, duration: 0.2, delay: 0.05 }} className="text-8xl">💢</motion.span>
+                   <motion.span animate={{ scale: [1, 2.5, 1] }} transition={{ repeat: Infinity, duration: 0.2, delay: 0.1 }} className="text-8xl">👿</motion.span>
                 </div>
-                <p className="text-3xl font-bold text-slate-800 bg-white/90 px-10 py-3 rounded-full inline-block backdrop-blur-md border-4 border-red-500 shadow-xl">
+                <p className="text-3xl md:text-5xl font-black text-slate-900 bg-white/95 px-12 py-4 rounded-full inline-block backdrop-blur-md border-4 border-red-600 shadow-2xl mt-4">
                   THIS IS NOT FOR YOU! 😤
                 </p>
               </div>
             </motion.div>
 
-            {/* Intense Red Flash Overlay */}
             <motion.div
-              animate={{ opacity: [0, 0.6, 0] }}
+              animate={{ opacity: [0, 0.7, 0] }}
               transition={{ duration: 0.05, repeat: Infinity }}
               className="absolute inset-0 bg-red-600 pointer-events-none mix-blend-overlay"
             />
@@ -207,9 +204,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
               key={i}
               className="absolute text-primary/10"
               initial={{ x: prop.x, y: prop.yStart }}
-              animate={{ 
-                y: "-10vh"
-              }}
+              animate={{ y: "-10vh" }}
               transition={{ 
                 duration: prop.duration, 
                 repeat: Infinity,
