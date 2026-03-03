@@ -3,7 +3,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ShieldAlert, Home } from "lucide-react";
+import { Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState, useRef } from "react";
 
@@ -24,11 +24,8 @@ export default function NotFound() {
       emojiIndex: Math.floor(Math.random() * angryEmojis.length)
     })));
 
-    // Try to play the alarm sound
     if (audioRef.current) {
-      audioRef.current.play().catch(() => {
-        // Fallback for browser auto-play block
-      });
+      audioRef.current.play().catch(() => {});
     }
   }, []);
 
@@ -42,7 +39,6 @@ export default function NotFound() {
         autoPlay
       />
 
-      {/* Chaotic Background Stickers */}
       <div className="absolute inset-0 pointer-events-none">
         {emojiProps.map((prop, i) => (
           <motion.div
@@ -83,9 +79,9 @@ export default function NotFound() {
           <motion.div 
             animate={{ scale: [1, 1.5, 1], y: [-20, 0, -20] }}
             transition={{ duration: 0.4, repeat: Infinity }}
-            className="absolute -top-10 -right-10 bg-red-600 text-white p-5 rounded-full shadow-2xl border-4 border-white"
+            className="absolute -top-10 -right-10 bg-red-600 text-white p-5 rounded-full shadow-2xl border-4 border-white flex items-center justify-center"
           >
-            <ShieldAlert size={64} />
+            <span className="text-6xl">❤️</span>
           </motion.div>
         </div>
 
@@ -107,7 +103,6 @@ export default function NotFound() {
         </div>
       </motion.div>
 
-      {/* Intense Red Flash Overlay */}
       <motion.div
         animate={{ opacity: [0, 0.4, 0] }}
         transition={{ duration: 0.05, repeat: Infinity }}

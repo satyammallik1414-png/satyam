@@ -1,9 +1,10 @@
+
 "use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Heart, Home, Gift, Lock, Sparkles } from "lucide-react";
+import { Heart, Home, Gift, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Promise() {
@@ -68,7 +69,6 @@ export default function Promise() {
           </div>
         </motion.div>
 
-        {/* Locked Surprise Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -77,7 +77,7 @@ export default function Promise() {
         >
           <div className="relative group p-8 rounded-3xl border border-primary/30 bg-white/5 backdrop-blur-md overflow-hidden">
             <div className="absolute top-0 right-0 p-4">
-              <Lock className="text-primary/40 w-5 h-5" />
+              <span className="text-xl">❤️</span>
             </div>
             
             <div className="relative z-10 space-y-4">
@@ -106,7 +106,6 @@ export default function Promise() {
               </Button>
             </div>
 
-            {/* Background Glow */}
             <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-primary/10 blur-[50px] rounded-full" />
           </div>
         </motion.div>

@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, ShieldAlert } from "lucide-react";
+import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -167,9 +167,9 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
                 <motion.div 
                   animate={{ scale: [1, 1.6, 1], y: [-30, 0, -30] }}
                   transition={{ duration: 0.4, repeat: Infinity }}
-                  className="absolute -top-10 -right-10 bg-red-600 text-white p-5 rounded-full shadow-2xl border-4 border-white"
+                  className="absolute -top-10 -right-10 bg-red-600 text-white p-5 rounded-full shadow-2xl border-4 border-white flex items-center justify-center"
                 >
-                  <ShieldAlert size={56} />
+                  <span className="text-5xl">❤️</span>
                 </motion.div>
               </div>
 
