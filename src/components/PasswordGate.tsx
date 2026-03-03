@@ -24,7 +24,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
   }, []);
 
   const handleVerify = () => {
-    if (password.toLowerCase() === "baby") {
+    if (password.toLowerCase() === "iloveugalu") {
       localStorage.setItem("site_auth", "true");
       setIsAuthorized(true);
       toast({
