@@ -1,21 +1,41 @@
+
 "use client";
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock, Heart, ShieldAlert, XCircle, Angry } from "lucide-react";
+import { Lock, Heart, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
 
 export function PasswordGate({ children }: { children: React.ReactNode }) {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [password, setPassword] = useState("");
   const [isAngry, setIsAngry] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [heartProps, setHeartProps] = useState<{ x: string; yStart: string; duration: number; delay: number; size: number }[]>([]);
+  const [angryEmojiProps, setAngryEmojiProps] = useState<{ x: string; yStart: string; duration: number; delay: number; rotate: number; emojiIndex: number }[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const angryEmojis = ["😡", "🤬", "💢", "😤", "👿", "🚫", "👊", "🔥", "⚠️", "💀"];
 
   useEffect(() => {
     setMounted(true);
+    // Initialize random values on client only to avoid hydration mismatch
+    setHeartProps(Array.from({ length: 15 }).map(() => ({
+      x: Math.random() * 100 + "vw",
+      yStart: "110vh",
+      duration: 5 + Math.random() * 5,
+      delay: Math.random() * 5,
+      size: Math.random() * 40 + 20
+    })));
+    setAngryEmojiProps(Array.from({ length: 25 }).map(() => ({
+      x: Math.random() * 100 + "vw",
+      yStart: "110vh",
+      duration: 1 + Math.random() * 1.5,
+      delay: Math.random() * 1,
+      rotate: Math.random() * 360,
+      emojiIndex: Math.floor(Math.random() * angryEmojis.length)
+    })));
   }, []);
 
   const handleUnlock = (e: React.FormEvent) => {
@@ -99,121 +119,104 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
         ) : (
           <motion.div
             key="angry"
-            initial={{ opacity: 0, backgroundColor: "rgba(0,0,0,0)" }}
+            initial={{ opacity: 0 }}
             animate={{ 
               opacity: 1, 
-              backgroundColor: "rgba(255, 0, 0, 0.1)",
+              backgroundColor: "rgba(255, 0, 0, 0.15)",
               transition: { duration: 0.2 }
             }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 flex flex-col items-center justify-center z-[200] bg-white"
           >
-            {/* Chaotic Background Stickers */}
+            {/* Chaotic Background Stickers (Angry Emojis) */}
             <div className="absolute inset-0 pointer-events-none">
-               {[...Array(12)].map((_, i) => (
+               {angryEmojiProps.map((prop, i) => (
                 <motion.div
                   key={i}
-                  initial={{ 
-                    x: Math.random() * 100 - 50 + "vw", 
-                    y: "100vh", 
-                    rotate: Math.random() * 360 
-                  }}
+                  initial={{ x: prop.x, y: prop.yStart, rotate: prop.rotate }}
                   animate={{ 
                     y: "-10vh",
-                    x: (Math.random() * 100 - 50) + "vw",
-                    rotate: Math.random() * 720
+                    rotate: prop.rotate + 360
                   }}
                   transition={{ 
-                    duration: 1 + Math.random() * 2,
-                    repeat: Infinity
+                    duration: prop.duration,
+                    repeat: Infinity,
+                    delay: prop.delay
                   }}
-                  className="absolute"
+                  className="absolute text-5xl sm:text-7xl select-none"
                 >
-                  <div className="relative w-20 h-20 opacity-40">
-                    <Image
-                      src={`https://picsum.photos/seed/angry${i}/200/200`}
-                      alt="Angry Mood"
-                      fill
-                      className="rounded-full object-cover grayscale"
-                      data-ai-hint="angry face"
-                    />
-                  </div>
+                  {angryEmojis[prop.emojiIndex]}
                 </motion.div>
               ))}
             </div>
 
             <motion.div
               animate={{ 
-                x: [-5, 5, -5, 5, 0],
-                rotate: [-2, 2, -2, 2, 0]
+                x: [-10, 10, -10, 10, 0],
+                rotate: [-5, 5, -5, 5, 0]
               }}
               transition={{ duration: 0.1, repeat: Infinity }}
               className="text-center space-y-6 relative z-10"
             >
-              <div className="relative w-48 h-48 mx-auto mb-8 drop-shadow-[0_0_30px_rgba(255,0,0,0.5)]">
-                <Image
-                  src="https://picsum.photos/seed/angersticker/400/400"
-                  alt="Angry Sticker"
-                  fill
-                  className="object-contain"
-                  data-ai-hint="angry boy"
-                />
-                <motion.div 
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 0.5, repeat: Infinity }}
-                  className="absolute -top-4 -right-4 bg-red-600 text-white p-2 rounded-full shadow-lg"
+              <div className="relative mb-8 flex items-center justify-center">
+                <motion.div
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ duration: 0.2, repeat: Infinity }}
+                  className="text-[10rem] sm:text-[15rem] drop-shadow-[0_0_50px_rgba(255,0,0,0.8)] select-none"
                 >
-                  <ShieldAlert size={32} />
+                  😡
+                </motion.div>
+                <motion.div 
+                  animate={{ scale: [1, 1.5, 1], y: [-20, 0, -20] }}
+                  transition={{ duration: 0.4, repeat: Infinity }}
+                  className="absolute -top-10 -right-10 bg-red-600 text-white p-4 rounded-full shadow-2xl border-4 border-white"
+                >
+                  <ShieldAlert size={48} />
                 </motion.div>
               </div>
 
               <div className="space-y-4">
-                <h1 className="text-6xl md:text-8xl font-black text-red-600 uppercase tracking-tighter">
+                <h1 className="text-7xl md:text-9xl font-black text-red-600 uppercase tracking-tighter drop-shadow-lg">
                   GET OUT!
                 </h1>
-                <div className="flex justify-center gap-4">
-                   <motion.span animate={{ scale: [1, 1.5, 1] }} transition={{ repeat: Infinity, duration: 0.3 }} className="text-6xl">😡</motion.span>
-                   <motion.span animate={{ scale: [1, 1.5, 1] }} transition={{ repeat: Infinity, duration: 0.3, delay: 0.1 }} className="text-6xl">💢</motion.span>
-                   <motion.span animate={{ scale: [1, 1.5, 1] }} transition={{ repeat: Infinity, duration: 0.3, delay: 0.2 }} className="text-6xl">🚫</motion.span>
+                <div className="flex justify-center gap-6">
+                   <motion.span animate={{ scale: [1, 2, 1] }} transition={{ repeat: Infinity, duration: 0.2 }} className="text-7xl">🤬</motion.span>
+                   <motion.span animate={{ scale: [1, 2, 1] }} transition={{ repeat: Infinity, duration: 0.2, delay: 0.05 }} className="text-7xl">💢</motion.span>
+                   <motion.span animate={{ scale: [1, 2, 1] }} transition={{ repeat: Infinity, duration: 0.2, delay: 0.1 }} className="text-7xl">👿</motion.span>
                 </div>
-                <p className="text-2xl font-bold text-slate-800 bg-white/80 px-8 py-2 rounded-full inline-block backdrop-blur-sm border-2 border-red-500">
-                  This is NOT for you!
+                <p className="text-3xl font-bold text-slate-800 bg-white/90 px-10 py-3 rounded-full inline-block backdrop-blur-md border-4 border-red-500 shadow-xl">
+                  THIS IS NOT FOR YOU! 😤
                 </p>
               </div>
             </motion.div>
 
-            {/* Red Flash Overlay */}
+            {/* Intense Red Flash Overlay */}
             <motion.div
-              animate={{ opacity: [0, 0.4, 0] }}
-              transition={{ duration: 0.1, repeat: Infinity }}
-              className="absolute inset-0 bg-red-600 pointer-events-none"
+              animate={{ opacity: [0, 0.6, 0] }}
+              transition={{ duration: 0.05, repeat: Infinity }}
+              className="absolute inset-0 bg-red-600 pointer-events-none mix-blend-overlay"
             />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Floating background elements for the login state */}
       {!isAngry && (
         <div className="fixed inset-0 pointer-events-none -z-10 opacity-30">
-          {[...Array(15)].map((_, i) => (
+          {heartProps.map((prop, i) => (
             <motion.div
               key={i}
               className="absolute text-primary/10"
-              initial={{ 
-                x: Math.random() * 100 + "vw", 
-                y: "110vh" 
-              }}
+              initial={{ x: prop.x, y: prop.yStart }}
               animate={{ 
-                y: "-10vh",
-                x: (Math.random() * 100) + "vw"
+                y: "-10vh"
               }}
               transition={{ 
-                duration: 5 + Math.random() * 5, 
+                duration: prop.duration, 
                 repeat: Infinity,
-                delay: i * 0.5
+                delay: prop.delay
               }}
             >
-              <Heart size={Math.random() * 40 + 20} fill="currentColor" />
+              <Heart size={prop.size} fill="currentColor" />
             </motion.div>
           ))}
         </div>
