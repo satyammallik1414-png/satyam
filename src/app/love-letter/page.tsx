@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -80,7 +79,7 @@ Forever yours.`;
         <div className="mt-12 flex justify-end">
           <div className="text-right">
             <p className="font-serif italic text-muted-foreground">With all my love,</p>
-            <p className="font-bold text-xl text-primary mt-1">Eternal Bloom</p>
+            <p className="font-bold text-xl text-primary mt-1">Galu, Baby</p>
           </div>
         </div>
       </motion.div>

@@ -1,10 +1,9 @@
-
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'Eternal Bloom | Happy Birthday My Love',
+  title: 'Galu, Baby | Happy Birthday My Love',
   description: 'A magical birthday journey for the most special person.',
 };
 

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { motion } from "framer-motion";
@@ -54,7 +53,7 @@ export default function Promise() {
         >
           <div className="text-2xl font-serif italic text-primary">
             <p className="mb-2">Forever Yours,</p>
-            <p className="text-4xl font-bold not-italic">Eternal Bloom ❤️</p>
+            <p className="text-4xl font-bold not-italic">Galu, Baby ❤️</p>
           </div>
         </motion.div>
 
@@ -73,7 +72,7 @@ export default function Promise() {
       </div>
       
       <div className="absolute bottom-8 text-white/20 text-xs uppercase tracking-[0.2em]">
-        Eternal Bloom &copy; {new Date().getFullYear()}
+        Galu, Baby &copy; {new Date().getFullYear()}
       </div>
     </main>
   );
