@@ -12,10 +12,21 @@ export function BirthdayCountdown() {
   }>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
-    // Set a dummy target date for demonstration: tomorrow's date
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 1);
-    targetDate.setHours(0, 0, 0, 0);
+    // Target date: August 10th
+    const calculateTargetDate = () => {
+      const now = new Date();
+      let targetYear = now.getFullYear();
+      // Month is 0-indexed, so August is 7
+      let target = new Date(targetYear, 7, 10, 0, 0, 0);
+
+      // If August 10th has already passed this year, target next year
+      if (now > target) {
+        target = new Date(targetYear + 1, 7, 10, 0, 0, 0);
+      }
+      return target;
+    };
+
+    const targetDate = calculateTargetDate();
 
     const timer = setInterval(() => {
       const now = new Date().getTime();

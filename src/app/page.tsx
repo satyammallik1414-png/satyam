@@ -7,7 +7,7 @@ import { FloatingHearts } from "@/components/FloatingHearts";
 import { BirthdayCountdown } from "@/components/BirthdayCountdown";
 import { AudioToggle } from "@/components/AudioToggle";
 import { Button } from "@/components/ui/button";
-import { Gift } from "lucide-react";
+import { Gift, CalendarDays } from "lucide-react";
 
 export default function Home() {
   return (
@@ -22,8 +22,12 @@ export default function Home() {
           transition={{ duration: 1 }}
           className="space-y-4"
         >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium text-sm mb-4">
+            <CalendarDays size={16} />
+            <span>Marking the Calendar for August 10</span>
+          </div>
           <h1 className="text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-glow animate-gradient-x leading-tight">
-            Happy Birthday <br /> My Princess ❤️
+            An Advance Wish <br /> For My Princess ❤️
           </h1>
           <motion.p
             initial={{ opacity: 0 }}
@@ -31,7 +35,7 @@ export default function Home() {
             transition={{ delay: 0.5, duration: 1 }}
             className="text-xl md:text-3xl font-light text-muted-foreground"
           >
-            Celebrating the <span className="text-primary font-semibold underline decoration-accent/30 underline-offset-8 italic">incredible soul</span> that makes my world magical.
+            Counting down the seconds until we celebrate the <span className="text-primary font-semibold underline decoration-accent/30 underline-offset-8 italic">most incredible soul</span>.
           </motion.p>
         </motion.div>
 
@@ -47,7 +51,7 @@ export default function Home() {
           <Link href="/love-letter">
             <Button size="lg" className="rounded-full px-12 py-8 text-xl group relative overflow-hidden transition-all hover:scale-105 hover:shadow-primary/50 hover:shadow-2xl">
               <span className="relative z-10 flex items-center gap-2">
-                Start the Surprise <Gift className="group-hover:rotate-12 transition-transform" />
+                Begin the Early Surprise <Gift className="group-hover:rotate-12 transition-transform" />
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity" />
             </Button>
@@ -61,7 +65,7 @@ export default function Home() {
         transition={{ delay: 1.5 }}
         className="absolute bottom-10 text-muted-foreground/60 text-sm italic"
       >
-        A special journey crafted just for you...
+        Your birthday journey starts early because one day isn't enough to celebrate you.
       </motion.footer>
     </main>
   );
