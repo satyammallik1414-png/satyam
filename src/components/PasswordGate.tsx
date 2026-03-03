@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Heart, Lock } from "lucide-react";
+import { Heart, Lock, AlertOctagon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 
@@ -28,6 +28,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
+    // Generate random values only on client to avoid hydration mismatch
     const hearts = Array.from({ length: 15 }).map((_, i) => ({
       id: i,
       x: `${Math.random() * 100}vw`,
@@ -48,7 +49,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
     } else {
       setIsRejected(true);
       
-      // Play rejection sound - Access Denied buzzer
+      // Play rejection sound
       if (errorAudioRef.current) {
         errorAudioRef.current.currentTime = 0;
         errorAudioRef.current.play().catch((e) => {
@@ -56,7 +57,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
         });
       }
       
-      // Reset after 5 seconds to give time for the "angry" sequence
+      // Reset after 5 seconds
       setTimeout(() => {
         setIsRejected(false);
         setPassword("");
@@ -70,7 +71,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-background p-6 overflow-hidden">
-      {/* Rejection Sound Effect - Access Denied Alert */}
+      {/* Rejection Sound Effect */}
       <audio 
         ref={errorAudioRef} 
         src="https://cdn.pixabay.com/audio/2022/03/24/audio_731478147d.mp3" 
@@ -84,42 +85,48 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.2 }}
-            className="text-center space-y-10 z-20 flex flex-col items-center max-w-lg"
+            className="text-center space-y-10 z-20 flex flex-col items-center max-w-2xl w-full"
           >
             <div className="relative">
+              {/* Main Central Angry Sticker */}
               <motion.div
                 animate={{ 
-                  rotate: [0, -10, 10, -10, 10, 0],
-                  scale: [1, 1.1, 1],
-                  x: [0, -5, 5, -5, 5, 0]
+                  rotate: [0, -15, 15, -15, 15, 0],
+                  scale: [1, 1.2, 1],
+                  x: [0, -10, 10, -10, 10, 0]
                 }}
-                transition={{ duration: 0.3, repeat: Infinity }}
-                className="relative w-72 h-72 drop-shadow-[0_0_40px_rgba(239,68,68,0.6)]"
+                transition={{ duration: 0.2, repeat: Infinity }}
+                className="relative w-80 h-80 drop-shadow-[0_0_50px_rgba(239,68,68,0.8)]"
               >
                 <Image 
-                  src="https://picsum.photos/seed/angry-boy-1/600/600" 
-                  alt="Angry Sticker"
+                  src="https://picsum.photos/seed/angry-boy-main/800/800" 
+                  alt="Main Angry Boy"
                   fill
                   className="object-contain"
                   data-ai-hint="angry boy"
                 />
               </motion.div>
               
-              {/* Floating Angry Sub-Stickers */}
-              {Array.from({ length: 4 }).map((_, i) => (
+              {/* Surrounding Reactive Stickers */}
+              {Array.from({ length: 6 }).map((_, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1, x: (i % 2 === 0 ? 120 : -120), y: (i < 2 ? -120 : 120) }}
-                  className="absolute top-1/2 left-1/2 w-24 h-24 -translate-x-1/2 -translate-y-1/2"
+                  animate={{ 
+                    opacity: 1, 
+                    scale: 1, 
+                    x: Math.cos(i * 60 * (Math.PI / 180)) * 200, 
+                    y: Math.sin(i * 60 * (Math.PI / 180)) * 200 
+                  }}
+                  className="absolute top-1/2 left-1/2 w-32 h-32 -translate-x-1/2 -translate-y-1/2"
                 >
                   <motion.div
-                    animate={{ rotate: [0, 20, -20, 0] }}
-                    transition={{ duration: 0.2, repeat: Infinity }}
+                    animate={{ rotate: [0, 30, -30, 0], scale: [1, 1.1, 1] }}
+                    transition={{ duration: 0.15, repeat: Infinity, delay: i * 0.05 }}
                     className="relative w-full h-full"
                   >
                     <Image 
-                      src={`https://picsum.photos/seed/angry-boy-${i + 2}/200/200`} 
+                      src={`https://picsum.photos/seed/angry-boy-sub-${i}/300/300`} 
                       alt="Angry Reaction"
                       fill
                       className="object-contain"
@@ -132,28 +139,28 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
             
             <div className="space-y-4">
               <motion.h2 
-                animate={{ x: [-2, 2, -2, 2, 0] }}
-                transition={{ duration: 0.1, repeat: 10 }}
-                className="text-4xl md:text-6xl font-black text-destructive uppercase tracking-tighter leading-none"
+                animate={{ x: [-5, 5, -5, 5, 0], scale: [1, 1.05, 1] }}
+                transition={{ duration: 0.1, repeat: Infinity }}
+                className="text-5xl md:text-8xl font-black text-destructive uppercase tracking-tighter leading-none"
               >
                 GET OUT FROM THIS WEBSITE!
               </motion.h2>
-              <p className="text-2xl font-bold text-muted-foreground italic bg-destructive/10 py-2 rounded-lg px-4 border-2 border-destructive/20">
+              <div className="bg-destructive text-white py-3 px-8 rounded-full inline-block font-bold text-2xl animate-pulse">
                 THIS IS NOT FOR YOU!
-              </p>
+              </div>
             </div>
 
-            <div className="flex justify-center gap-6">
-              {["😤", "😠", "😡", "💢", "👊"].map((emoji, i) => (
+            <div className="flex justify-center gap-4 flex-wrap">
+              {["😤", "😠", "😡", "💢", "👊", "🖕", "💥"].map((emoji, i) => (
                 <motion.span
                   key={i}
                   animate={{ 
-                    y: [0, -40, 0], 
-                    rotate: [0, 20, -20, 0],
-                    scale: [1, 1.5, 1]
+                    y: [0, -50, 0], 
+                    rotate: [0, 45, -45, 0],
+                    scale: [1, 2, 1]
                   }}
-                  transition={{ delay: i * 0.05, duration: 0.4, repeat: Infinity }}
-                  className="text-6xl drop-shadow-md"
+                  transition={{ delay: i * 0.03, duration: 0.3, repeat: Infinity }}
+                  className="text-7xl drop-shadow-xl"
                 >
                   {emoji}
                 </motion.span>
@@ -209,7 +216,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
         )}
       </AnimatePresence>
 
-      {/* Background Hearts/Particles (Subtle) */}
+      {/* Background Hearts (Subtle) */}
       <div className="absolute inset-0 pointer-events-none opacity-10">
         {mounted && backgroundHearts.map((heart) => (
           <motion.div
