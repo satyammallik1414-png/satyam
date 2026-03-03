@@ -24,7 +24,7 @@ export function AudioToggle() {
       <audio
         ref={audioRef}
         loop
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+        src="https://cdn.pixabay.com/audio/2021/08/04/audio_097d620a23.mp3"
       />
       <motion.div
         whileHover={{ scale: 1.1 }}
