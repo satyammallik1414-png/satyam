@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "mem-1",
+      "description": "Our first date at the cafe",
+      "imageUrl": "https://images.unsplash.com/photo-1583124252515-5bda43518acd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb3VwbGUlMjBjYWZlfGVufDB8fHx8MTc3MjUyNDYzMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "couple cafe"
+    },
+    {
+      "id": "mem-2",
+      "description": "That sunset walk on the beach",
+      "imageUrl": "https://images.unsplash.com/photo-1561571994-3c61c554181a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxiZWFjaCUyMHN1bnNldHxlbnwwfHx8fDE3NzI0MTk5NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "beach sunset"
+    },
+    {
+      "id": "mem-3",
+      "description": "Watching movies on a rainy night",
+      "imageUrl": "https://images.unsplash.com/photo-1605191353027-d21e534a419a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxob21lJTIwY296eXxlbnwwfHx8fDE3NzI1MjQ2MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "home cozy"
+    },
+    {
+      "id": "mem-4",
+      "description": "Our first trip together",
+      "imageUrl": "https://images.unsplash.com/photo-1623556710453-d76c4ea26d1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx0cmF2ZWwlMjBjb3VwbGV8ZW58MHx8fHwxNzcyNTI0NjMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "travel couple"
+    },
+    {
+      "id": "mem-5",
+      "description": "The time we cooked dinner",
+      "imageUrl": "https://images.unsplash.com/photo-1758523417851-80ae1a8531fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjb29raW5nJTIwY291cGxlfGVufDB8fHx8MTc3MjUyNDYzMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cooking couple"
+    },
+    {
+      "id": "mem-6",
+      "description": "Dancing in the living room",
+      "imageUrl": "https://images.unsplash.com/photo-1620414713230-564d61a36936?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkYW5jaW5nJTIwY291cGxlfGVufDB8fHx8MTc3MjUyNDYzMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dancing couple"
+    }
+  ]
 }

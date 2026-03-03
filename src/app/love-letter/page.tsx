@@ -81,7 +81,10 @@ Forever yours.`;
         className="mt-12 z-20"
       >
         <Link href="/gallery">
-          <Button size="lg" className="rounded-full px-10 py-7 gap-3 shadow-xl hover:scale-105 transition-all">
+          <Button 
+            size="lg" 
+            className="rounded-full px-10 py-7 gap-3 shadow-xl hover:scale-105 transition-all bg-primary hover:bg-primary/90 text-white"
+          >
             See Our Memories <Camera size={20} />
           </Button>
         </Link>
