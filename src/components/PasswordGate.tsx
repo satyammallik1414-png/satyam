@@ -48,7 +48,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
     } else {
       setIsRejected(true);
       
-      // Play rejection sound - usually works because it's triggered by user interaction (click/enter)
+      // Play rejection sound
       if (errorAudioRef.current) {
         errorAudioRef.current.currentTime = 0;
         errorAudioRef.current.play().catch((e) => {
@@ -98,11 +98,11 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
                 className="relative w-80 h-80 md:w-96 md:h-96 drop-shadow-[0_0_60px_rgba(239,68,68,1)]"
               >
                 <Image 
-                  src="https://picsum.photos/seed/very-angry-boy-1/1000/1000" 
+                  src="https://picsum.photos/seed/anger-sticker-main/1000/1000" 
                   alt="Main Angry Reaction"
                   fill
                   className="object-contain"
-                  data-ai-hint="angry boy"
+                  data-ai-hint="anger sticker"
                 />
               </motion.div>
               
@@ -125,11 +125,11 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
                     className="relative w-full h-full"
                   >
                     <Image 
-                      src={`https://picsum.photos/seed/angry-boy-mood-${i}/400/400`} 
-                      alt="Angry Reaction"
+                      src={`https://picsum.photos/seed/anger-sticker-mood-${i}/400/400`} 
+                      alt="Anger Reaction"
                       fill
                       className="object-contain"
-                      data-ai-hint="angry boy"
+                      data-ai-hint="anger emoji"
                     />
                   </motion.div>
                 </motion.div>
@@ -210,7 +210,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
               />
               <Button 
                 onClick={handleVerify}
-                className="w-full rounded-2xl py-8 text-xl font-bold gap-3 shadow-[0_10px_30px_rgba(209,64,180,0.3)] hover:shadow-[0_15px_40px_rgba(209,64,180,0.4)] transition-all hover:scale-[1.02] active:scale-95"
+                className="w-full rounded-2xl py-8 text-xl font-bold gap-3 shadow-[0_10px_30px_rgba(209,64,180,0.3)] hover:shadow-[0_15px_40_rgba(209,64,180,0.4)] transition-all hover:scale-[1.02] active:scale-95"
               >
                 Unlock the Magic <Heart size={20} fill="currentColor" />
               </Button>
