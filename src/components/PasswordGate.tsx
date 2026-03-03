@@ -1,11 +1,10 @@
-
 "use client";
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Heart, Lock, AlertOctagon } from "lucide-react";
+import { Heart, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 
@@ -49,7 +48,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
     } else {
       setIsRejected(true);
       
-      // Play rejection sound
+      // Play rejection sound - usually works because it's triggered by user interaction (click/enter)
       if (errorAudioRef.current) {
         errorAudioRef.current.currentTime = 0;
         errorAudioRef.current.play().catch((e) => {
@@ -57,7 +56,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
         });
       }
       
-      // Reset after 5 seconds
+      // Reset after 5 seconds to give the user another chance
       setTimeout(() => {
         setIsRejected(false);
         setPassword("");
@@ -99,8 +98,8 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
                 className="relative w-80 h-80 drop-shadow-[0_0_50px_rgba(239,68,68,0.8)]"
               >
                 <Image 
-                  src="https://picsum.photos/seed/angry-boy-main/800/800" 
-                  alt="Main Angry Boy"
+                  src="https://picsum.photos/seed/angry-boy-sticker-1/800/800" 
+                  alt="Main Angry Reaction"
                   fill
                   className="object-contain"
                   data-ai-hint="angry boy"
@@ -115,8 +114,8 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
                   animate={{ 
                     opacity: 1, 
                     scale: 1, 
-                    x: Math.cos(i * 60 * (Math.PI / 180)) * 200, 
-                    y: Math.sin(i * 60 * (Math.PI / 180)) * 200 
+                    x: Math.cos(i * 60 * (Math.PI / 180)) * 220, 
+                    y: Math.sin(i * 60 * (Math.PI / 180)) * 220 
                   }}
                   className="absolute top-1/2 left-1/2 w-32 h-32 -translate-x-1/2 -translate-y-1/2"
                 >
@@ -126,7 +125,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
                     className="relative w-full h-full"
                   >
                     <Image 
-                      src={`https://picsum.photos/seed/angry-boy-sub-${i}/300/300`} 
+                      src={`https://picsum.photos/seed/angry-boy-sticker-sub-${i}/300/300`} 
                       alt="Angry Reaction"
                       fill
                       className="object-contain"
