@@ -106,7 +106,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
                 autoFocus
               />
               <Button type="submit" className="w-full h-14 text-lg rounded-2xl shadow-lg hover:shadow-primary/30 transition-all">
-                Unlock the Magic ✨
+                Unlock the Magic ❤️
               </Button>
             </form>
 

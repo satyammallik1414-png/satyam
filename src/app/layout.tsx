@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { PasswordGate } from "@/components/PasswordGate";
 
 export const metadata: Metadata = {
-  title: 'Galu, Baby | Happy Birthday My Love',
+  title: '❤️ Galu, Baby | Happy Birthday My Love',
   description: 'A magical birthday journey for the most special person.',
 };
 
@@ -19,6 +19,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>" />
       </head>
       <body className="font-body antialiased overflow-x-hidden">
         <div className="fixed inset-0 pointer-events-none -z-10 opacity-30">
