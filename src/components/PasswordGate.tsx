@@ -5,15 +5,37 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Heart, Lock, ShieldAlert, XCircle } from "lucide-react";
+import { Heart, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+
+interface RandomHeart {
+  id: number;
+  x: string;
+  size: number;
+  duration: number;
+  delay: number;
+}
 
 export function PasswordGate({ children }: { children: React.ReactNode }) {
   const [password, setPassword] = useState("");
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [isRejected, setIsRejected] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [backgroundHearts, setBackgroundHearts] = useState<RandomHeart[]>([]);
   const { toast } = useToast();
   const errorAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+    const hearts = Array.from({ length: 10 }).map((_, i) => ({
+      id: i,
+      x: `${Math.random() * 100}vw`,
+      size: Math.random() * 20 + 10,
+      duration: 10 + Math.random() * 10,
+      delay: i * 2,
+    }));
+    setBackgroundHearts(hearts);
+  }, []);
 
   const handleVerify = () => {
     if (password.toLowerCase() === "iloveugalu") {
@@ -141,15 +163,15 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
 
       {/* Background Hearts/Particles (Subtle) */}
       <div className="absolute inset-0 pointer-events-none opacity-10">
-        {Array.from({ length: 10 }).map((_, i) => (
+        {mounted && backgroundHearts.map((heart) => (
           <motion.div
-            key={i}
+            key={heart.id}
             className="absolute text-primary"
-            initial={{ y: "100vh", x: `${Math.random() * 100}vw` }}
+            initial={{ y: "100vh", x: heart.x }}
             animate={{ y: "-10vh" }}
-            transition={{ duration: 10 + Math.random() * 10, repeat: Infinity, delay: i * 2 }}
+            transition={{ duration: heart.duration, repeat: Infinity, delay: heart.delay }}
           >
-            <Heart size={Math.random() * 20 + 10} fill="currentColor" />
+            <Heart size={heart.size} fill="currentColor" />
           </motion.div>
         ))}
       </div>
