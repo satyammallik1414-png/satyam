@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -10,22 +10,11 @@ import { useToast } from "@/hooks/use-toast";
 
 export function PasswordGate({ children }: { children: React.ReactNode }) {
   const [password, setPassword] = useState("");
-  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const { toast } = useToast();
-
-  useEffect(() => {
-    // Check if user was previously authorized in this session
-    const auth = localStorage.getItem("site_auth");
-    if (auth === "true") {
-      setIsAuthorized(true);
-    } else {
-      setIsAuthorized(false);
-    }
-  }, []);
 
   const handleVerify = () => {
     if (password.toLowerCase() === "iloveugalu") {
-      localStorage.setItem("site_auth", "true");
       setIsAuthorized(true);
       toast({
         title: "Welcome back, my love! ❤️",
@@ -39,14 +28,6 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
       });
     }
   };
-
-  if (isAuthorized === null) {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center bg-background">
-        <Heart className="text-primary animate-pulse" size={48} fill="currentColor" />
-      </div>
-    );
-  }
 
   if (isAuthorized) {
     return <>{children}</>;
