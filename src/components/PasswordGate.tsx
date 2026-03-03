@@ -26,10 +26,10 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
       delay: Math.random() * 5,
       size: Math.random() * 40 + 20
     })));
-    setAngryEmojiProps(Array.from({ length: 30 }).map(() => ({
+    setAngryEmojiProps(Array.from({ length: 20 }).map(() => ({
       x: Math.random() * 100 + "vw",
       yStart: "110vh",
-      duration: 1 + Math.random() * 1,
+      duration: 0.8 + Math.random() * 0.7,
       delay: Math.random() * 0.5,
       rotate: Math.random() * 360,
       emojiIndex: Math.floor(Math.random() * angryEmojis.length)
@@ -49,17 +49,15 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
   const triggerAngryMode = () => {
     setIsAngry(true);
     
-    // Play Rejection Sound
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch(() => {});
     }
 
-    // Voice Warning (Automated)
     if ('speechSynthesis' in window) {
       const msg = new SpeechSynthesisUtterance("Get out from this website! This is not for you!");
-      msg.rate = 0.9;
-      msg.pitch = 0.6;
+      msg.rate = 1;
+      msg.pitch = 0.5;
       window.speechSynthesis.speak(msg);
     }
 
@@ -88,7 +86,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.1 }}
-            className="w-full max-w-md p-8 text-center space-y-8 relative z-10"
+            className="w-full max-w-md p-6 text-center space-y-8 relative z-10"
           >
             <motion.div
               animate={{ 
@@ -96,14 +94,14 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
                 scale: [1, 1.1, 1]
               }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="w-24 h-24 bg-primary/10 rounded-3xl mx-auto flex items-center justify-center border border-primary/20 shadow-xl"
+              className="w-20 h-20 md:w-24 md:h-24 bg-primary/10 rounded-3xl mx-auto flex items-center justify-center border border-primary/20 shadow-xl"
             >
-              <span className="text-6xl drop-shadow-lg">❤️</span>
+              <span className="text-5xl md:text-6xl drop-shadow-lg">❤️</span>
             </motion.div>
 
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tight text-primary">Secret Access Only</h2>
-              <p className="text-muted-foreground">Please enter the secret word to unlock your birthday magic.</p>
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-primary">Secret Access Only</h2>
+              <p className="text-sm md:text-base text-muted-foreground">Please enter the secret word to unlock your birthday magic.</p>
             </div>
 
             <form onSubmit={handleUnlock} className="space-y-4">
@@ -131,8 +129,8 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
             initial={{ opacity: 0 }}
             animate={{ 
               opacity: 1, 
-              backgroundColor: "rgba(255, 0, 0, 0.15)",
-              transition: { duration: 0.2 }
+              backgroundColor: "rgba(255, 0, 0, 0.1)",
+              transition: { duration: 0.1 }
             }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 flex flex-col items-center justify-center z-[200] bg-white"
@@ -143,7 +141,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
                   key={i}
                   initial={{ x: prop.x, y: prop.yStart, rotate: prop.rotate }}
                   animate={{ 
-                    y: "-10vh",
+                    y: "-20vh",
                     rotate: prop.rotate + 720
                   }}
                   transition={{ 
@@ -151,7 +149,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
                     repeat: Infinity,
                     delay: prop.delay
                   }}
-                  className="absolute text-6xl sm:text-8xl select-none"
+                  className="absolute text-5xl md:text-8xl select-none"
                 >
                   {angryEmojis[prop.emojiIndex]}
                 </motion.div>
@@ -160,42 +158,42 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
 
             <motion.div
               animate={{ 
-                x: [-20, 20, -20, 20, 0],
-                rotate: [-10, 10, -10, 10, 0]
+                x: [-10, 10, -10, 10, 0],
+                rotate: [-5, 5, -5, 5, 0]
               }}
-              transition={{ duration: 0.08, repeat: Infinity }}
-              className="text-center space-y-6 relative z-10"
+              transition={{ duration: 0.1, repeat: Infinity }}
+              className="text-center space-y-4 md:space-y-6 relative z-10 p-4"
             >
-              <div className="relative mb-8 flex items-center justify-center">
+              <div className="relative mb-4 md:mb-8 flex items-center justify-center">
                 <motion.div
-                  animate={{ scale: [1, 1.5, 1] }}
+                  animate={{ scale: [1, 1.3, 1] }}
                   transition={{ duration: 0.2, repeat: Infinity }}
-                  className="text-[14rem] sm:text-[20rem] drop-shadow-[0_0_80px_rgba(255,0,0,1)] select-none"
+                  className="text-[10rem] md:text-[20rem] drop-shadow-[0_0_60px_rgba(255,0,0,1)] select-none leading-none"
                 >
                   😡
                 </motion.div>
                 <motion.div 
-                  animate={{ scale: [1, 2, 1], y: [-40, 0, -40] }}
+                  animate={{ scale: [1, 1.8, 1], y: [-20, 0, -20] }}
                   transition={{ duration: 0.4, repeat: Infinity }}
-                  className="absolute -top-12 -right-12 bg-red-600 text-white p-6 rounded-full shadow-2xl border-4 border-white flex items-center justify-center"
+                  className="absolute -top-6 -right-6 md:-top-12 md:-right-12 bg-red-600 text-white p-3 md:p-6 rounded-full shadow-2xl border-2 md:border-4 border-white flex items-center justify-center"
                 >
-                  <span className="text-6xl">❤️</span>
+                  <span className="text-3xl md:text-6xl">❤️</span>
                 </motion.div>
               </div>
 
-              <div className="space-y-4">
-                <h1 className="text-8xl md:text-[12rem] font-black text-red-600 uppercase tracking-tighter drop-shadow-2xl">
+              <div className="space-y-2 md:space-y-4">
+                <h1 className="text-6xl md:text-[12rem] font-black text-red-600 uppercase tracking-tighter drop-shadow-2xl">
                   GET OUT!
                 </h1>
-                <p className="text-4xl md:text-6xl font-black text-slate-900 bg-white/95 px-16 py-6 rounded-full inline-block backdrop-blur-md border-[6px] border-red-600 shadow-2xl mt-4">
-                  THIS IS NOT FOR YOU! 😤
+                <p className="text-2xl md:text-6xl font-black text-slate-900 bg-white/95 px-8 md:px-16 py-3 md:py-6 rounded-full inline-block backdrop-blur-md border-[4px] md:border-[6px] border-red-600 shadow-2xl">
+                  NOT FOR YOU! 😤
                 </p>
               </div>
             </motion.div>
 
             <motion.div
-              animate={{ opacity: [0, 0.8, 0] }}
-              transition={{ duration: 0.04, repeat: Infinity }}
+              animate={{ opacity: [0, 0.6, 0] }}
+              transition={{ duration: 0.05, repeat: Infinity }}
               className="absolute inset-0 bg-red-600 pointer-events-none mix-blend-overlay"
             />
           </motion.div>
