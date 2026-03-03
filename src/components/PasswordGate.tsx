@@ -70,7 +70,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-background p-6 overflow-hidden">
-      {/* Rejection Sound Effect - Direct link to a buzzer/alert sound */}
+      {/* Rejection Sound Effect - Access Denied Alert */}
       <audio 
         ref={errorAudioRef} 
         src="https://cdn.pixabay.com/audio/2022/03/24/audio_731478147d.mp3" 
@@ -86,32 +86,53 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
             exit={{ opacity: 0, scale: 1.2 }}
             className="text-center space-y-10 z-20 flex flex-col items-center max-w-lg"
           >
-            <motion.div
-              animate={{ 
-                rotate: [0, -10, 10, -10, 10, 0],
-                scale: [1, 1.1, 1]
-              }}
-              transition={{ duration: 0.4, repeat: Infinity }}
-              className="relative w-64 h-64 drop-shadow-[0_0_30px_rgba(239,68,68,0.4)]"
-            >
-              <Image 
-                src="https://picsum.photos/seed/angry-boy-sticker/600/600" 
-                alt="Angry Sticker"
-                fill
-                className="object-contain"
-                data-ai-hint="angry boy"
-              />
-            </motion.div>
+            <div className="relative">
+              <motion.div
+                animate={{ 
+                  rotate: [0, -10, 10, -10, 10, 0],
+                  scale: [1, 1.1, 1],
+                  x: [0, -5, 5, -5, 5, 0]
+                }}
+                transition={{ duration: 0.3, repeat: Infinity }}
+                className="relative w-72 h-72 drop-shadow-[0_0_40px_rgba(239,68,68,0.6)]"
+              >
+                <Image 
+                  src="https://picsum.photos/seed/angry-boy-1/600/600" 
+                  alt="Angry Sticker"
+                  fill
+                  className="object-contain"
+                  data-ai-hint="angry boy"
+                />
+              </motion.div>
+              
+              {/* Floating Angry Sub-Stickers */}
+              {Array.from({ length: 4 }).map((_, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1, x: (i % 2 === 0 ? 100 : -100), y: (i < 2 ? -100 : 100) }}
+                  className="absolute top-1/2 left-1/2 w-20 h-20 -translate-x-1/2 -translate-y-1/2"
+                >
+                  <Image 
+                    src={`https://picsum.photos/seed/angry-boy-${i + 2}/200/200`} 
+                    alt="Angry Reaction"
+                    fill
+                    className="object-contain"
+                    data-ai-hint="angry boy"
+                  />
+                </motion.div>
+              ))}
+            </div>
             
             <div className="space-y-4">
               <motion.h2 
                 animate={{ x: [-2, 2, -2, 2, 0] }}
                 transition={{ duration: 0.1, repeat: 10 }}
-                className="text-4xl md:text-5xl font-black text-destructive uppercase tracking-tighter leading-none"
+                className="text-4xl md:text-6xl font-black text-destructive uppercase tracking-tighter leading-none"
               >
                 GET OUT FROM THIS WEBSITE!
               </motion.h2>
-              <p className="text-2xl font-bold text-muted-foreground italic bg-destructive/10 py-2 rounded-lg px-4">
+              <p className="text-2xl font-bold text-muted-foreground italic bg-destructive/10 py-2 rounded-lg px-4 border-2 border-destructive/20">
                 THIS IS NOT FOR YOU!
               </p>
             </div>
@@ -120,9 +141,13 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
               {["😤", "😠", "😡", "💢", "👊"].map((emoji, i) => (
                 <motion.span
                   key={i}
-                  animate={{ y: [0, -30, 0], rotate: [0, 10, -10, 0] }}
-                  transition={{ delay: i * 0.1, duration: 0.5, repeat: Infinity }}
-                  className="text-5xl"
+                  animate={{ 
+                    y: [0, -40, 0], 
+                    rotate: [0, 20, -20, 0],
+                    scale: [1, 1.5, 1]
+                  }}
+                  transition={{ delay: i * 0.05, duration: 0.4, repeat: Infinity }}
+                  className="text-6xl drop-shadow-md"
                 >
                   {emoji}
                 </motion.span>
