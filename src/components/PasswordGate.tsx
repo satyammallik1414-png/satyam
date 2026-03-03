@@ -84,21 +84,21 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.2 }}
-            className="text-center space-y-10 z-20 flex flex-col items-center max-w-2xl w-full"
+            className="text-center space-y-10 z-20 flex flex-col items-center max-w-4xl w-full"
           >
             <div className="relative">
-              {/* Main Central Angry Sticker */}
+              {/* Main Central Angry Sticker - High Intensity */}
               <motion.div
                 animate={{ 
-                  rotate: [0, -15, 15, -15, 15, 0],
-                  scale: [1, 1.2, 1],
-                  x: [0, -10, 10, -10, 10, 0]
+                  rotate: [0, -20, 20, -20, 20, 0],
+                  scale: [1, 1.3, 1],
+                  x: [0, -15, 15, -15, 15, 0]
                 }}
-                transition={{ duration: 0.2, repeat: Infinity }}
-                className="relative w-80 h-80 drop-shadow-[0_0_50px_rgba(239,68,68,0.8)]"
+                transition={{ duration: 0.15, repeat: Infinity }}
+                className="relative w-80 h-80 md:w-96 md:h-96 drop-shadow-[0_0_60px_rgba(239,68,68,1)]"
               >
                 <Image 
-                  src="https://picsum.photos/seed/angry-boy-sticker-1/800/800" 
+                  src="https://picsum.photos/seed/very-angry-boy-1/1000/1000" 
                   alt="Main Angry Reaction"
                   fill
                   className="object-contain"
@@ -106,26 +106,26 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
                 />
               </motion.div>
               
-              {/* Surrounding Reactive Stickers */}
-              {Array.from({ length: 6 }).map((_, i) => (
+              {/* Surrounding Reactive Stickers - Swarming Effect */}
+              {Array.from({ length: 8 }).map((_, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ 
                     opacity: 1, 
                     scale: 1, 
-                    x: Math.cos(i * 60 * (Math.PI / 180)) * 220, 
-                    y: Math.sin(i * 60 * (Math.PI / 180)) * 220 
+                    x: Math.cos(i * 45 * (Math.PI / 180)) * 280, 
+                    y: Math.sin(i * 45 * (Math.PI / 180)) * 280 
                   }}
-                  className="absolute top-1/2 left-1/2 w-32 h-32 -translate-x-1/2 -translate-y-1/2"
+                  className="absolute top-1/2 left-1/2 w-36 h-36 -translate-x-1/2 -translate-y-1/2"
                 >
                   <motion.div
-                    animate={{ rotate: [0, 30, -30, 0], scale: [1, 1.1, 1] }}
-                    transition={{ duration: 0.15, repeat: Infinity, delay: i * 0.05 }}
+                    animate={{ rotate: [0, 45, -45, 0], scale: [1, 1.2, 1] }}
+                    transition={{ duration: 0.1, repeat: Infinity, delay: i * 0.03 }}
                     className="relative w-full h-full"
                   >
                     <Image 
-                      src={`https://picsum.photos/seed/angry-boy-sticker-sub-${i}/300/300`} 
+                      src={`https://picsum.photos/seed/angry-boy-mood-${i}/400/400`} 
                       alt="Angry Reaction"
                       fill
                       className="object-contain"
@@ -138,28 +138,36 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
             
             <div className="space-y-4">
               <motion.h2 
-                animate={{ x: [-5, 5, -5, 5, 0], scale: [1, 1.05, 1] }}
-                transition={{ duration: 0.1, repeat: Infinity }}
-                className="text-5xl md:text-8xl font-black text-destructive uppercase tracking-tighter leading-none"
+                animate={{ 
+                  x: [-10, 10, -10, 10, 0], 
+                  scale: [1, 1.1, 1],
+                  color: ["#ef4444", "#f87171", "#ef4444"]
+                }}
+                transition={{ duration: 0.05, repeat: Infinity }}
+                className="text-6xl md:text-9xl font-black text-destructive uppercase tracking-tighter leading-none"
               >
                 GET OUT FROM THIS WEBSITE!
               </motion.h2>
-              <div className="bg-destructive text-white py-3 px-8 rounded-full inline-block font-bold text-2xl animate-pulse">
+              <motion.div 
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 0.5, repeat: Infinity }}
+                className="bg-destructive text-white py-4 px-12 rounded-full inline-block font-black text-3xl shadow-2xl"
+              >
                 THIS IS NOT FOR YOU!
-              </div>
+              </motion.div>
             </div>
 
-            <div className="flex justify-center gap-4 flex-wrap">
-              {["😤", "😠", "😡", "💢", "👊", "🖕", "💥"].map((emoji, i) => (
+            <div className="flex justify-center gap-6 flex-wrap">
+              {["😤", "😠", "😡", "💢", "👊", "🖕", "💥", "👹", "🌋"].map((emoji, i) => (
                 <motion.span
                   key={i}
                   animate={{ 
-                    y: [0, -50, 0], 
-                    rotate: [0, 45, -45, 0],
-                    scale: [1, 2, 1]
+                    y: [0, -100, 0], 
+                    rotate: [0, 90, -90, 0],
+                    scale: [1, 2.5, 1]
                   }}
-                  transition={{ delay: i * 0.03, duration: 0.3, repeat: Infinity }}
-                  className="text-7xl drop-shadow-xl"
+                  transition={{ delay: i * 0.02, duration: 0.25, repeat: Infinity }}
+                  className="text-8xl drop-shadow-2xl"
                 >
                   {emoji}
                 </motion.span>
