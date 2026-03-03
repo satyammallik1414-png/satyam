@@ -10,6 +10,21 @@ import confetti from "canvas-confetti";
 
 export default function Surprise() {
   const [isRevealed, setIsRevealed] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [stars, setStars] = useState<{ id: number; left: string; top: string; size: number; delay: number; duration: number }[]>([]);
+
+  useEffect(() => {
+    setMounted(true);
+    const newStars = Array.from({ length: 50 }).map((_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      size: Math.random() * 4 + 2,
+      delay: Math.random() * 5,
+      duration: Math.random() * 3 + 2,
+    }));
+    setStars(newStars);
+  }, []);
 
   const triggerConfetti = () => {
     const duration = 5 * 1000;
@@ -40,16 +55,16 @@ export default function Surprise() {
     <main className="min-h-screen flex flex-col items-center justify-center p-6 bg-slate-950 relative overflow-hidden">
       {/* Background stars */}
       <div className="absolute inset-0 z-0">
-        {Array.from({ length: 50 }).map((_, i) => (
+        {mounted && stars.map((star) => (
           <motion.div
-            key={i}
+            key={star.id}
             initial={{ opacity: 0 }}
             animate={{ opacity: [0, 1, 0] }}
-            transition={{ duration: Math.random() * 3 + 2, repeat: Infinity, delay: Math.random() * 5 }}
+            transition={{ duration: star.duration, repeat: Infinity, delay: star.delay }}
             className="absolute text-white/20"
-            style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
+            style={{ left: star.left, top: star.top }}
           >
-            <Star size={Math.random() * 4 + 2} fill="currentColor" />
+            <Star size={star.size} fill="currentColor" />
           </motion.div>
         ))}
       </div>
@@ -131,7 +146,7 @@ export default function Surprise() {
       {/* Floating hearts only in revealed state */}
       {isRevealed && (
         <div className="fixed inset-0 pointer-events-none">
-          {Array.from({ length: 15 }).map((_, i) => (
+          {mounted && Array.from({ length: 15 }).map((_, i) => (
             <motion.div
               key={i}
               initial={{ y: "100vh", opacity: 0 }}
