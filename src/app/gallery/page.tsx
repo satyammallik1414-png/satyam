@@ -11,6 +11,8 @@ import {
   Dialog,
   DialogContent,
   DialogTrigger,
+  DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 
 export default function Gallery() {
@@ -57,6 +59,8 @@ export default function Gallery() {
                   </div>
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl p-1 bg-white/10 backdrop-blur-xl border-none">
+                  <DialogTitle className="sr-only">{img.description}</DialogTitle>
+                  <DialogDescription className="sr-only">Viewing a shared memory from our journey together.</DialogDescription>
                   <div className="relative aspect-[16/10] w-full rounded-lg overflow-hidden">
                     <Image
                       src={img.imageUrl}
