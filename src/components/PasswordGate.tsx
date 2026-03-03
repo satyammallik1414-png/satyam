@@ -110,16 +110,22 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1, x: (i % 2 === 0 ? 100 : -100), y: (i < 2 ? -100 : 100) }}
-                  className="absolute top-1/2 left-1/2 w-20 h-20 -translate-x-1/2 -translate-y-1/2"
+                  animate={{ opacity: 1, scale: 1, x: (i % 2 === 0 ? 120 : -120), y: (i < 2 ? -120 : 120) }}
+                  className="absolute top-1/2 left-1/2 w-24 h-24 -translate-x-1/2 -translate-y-1/2"
                 >
-                  <Image 
-                    src={`https://picsum.photos/seed/angry-boy-${i + 2}/200/200`} 
-                    alt="Angry Reaction"
-                    fill
-                    className="object-contain"
-                    data-ai-hint="angry boy"
-                  />
+                  <motion.div
+                    animate={{ rotate: [0, 20, -20, 0] }}
+                    transition={{ duration: 0.2, repeat: Infinity }}
+                    className="relative w-full h-full"
+                  >
+                    <Image 
+                      src={`https://picsum.photos/seed/angry-boy-${i + 2}/200/200`} 
+                      alt="Angry Reaction"
+                      fill
+                      className="object-contain"
+                      data-ai-hint="angry boy"
+                    />
+                  </motion.div>
                 </motion.div>
               ))}
             </div>
