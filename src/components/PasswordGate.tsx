@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -47,11 +48,11 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
     } else {
       setIsRejected(true);
       
-      // Play rejection sound
+      // Play rejection sound - Access Denied buzzer
       if (errorAudioRef.current) {
         errorAudioRef.current.currentTime = 0;
-        errorAudioRef.current.play().catch(() => {
-          // Playback might be blocked by browser if not triggered by interaction
+        errorAudioRef.current.play().catch((e) => {
+          console.warn("Audio playback was blocked or failed", e);
         });
       }
       
@@ -69,7 +70,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-background p-6 overflow-hidden">
-      {/* Rejection Sound Effect */}
+      {/* Rejection Sound Effect - Direct link to a buzzer/alert sound */}
       <audio 
         ref={errorAudioRef} 
         src="https://cdn.pixabay.com/audio/2022/03/24/audio_731478147d.mp3" 
@@ -110,7 +111,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
               >
                 GET OUT FROM THIS WEBSITE!
               </motion.h2>
-              <p className="text-2xl font-bold text-muted-foreground italic bg-destructive/10 py-2 rounded-lg">
+              <p className="text-2xl font-bold text-muted-foreground italic bg-destructive/10 py-2 rounded-lg px-4">
                 THIS IS NOT FOR YOU!
               </p>
             </div>
