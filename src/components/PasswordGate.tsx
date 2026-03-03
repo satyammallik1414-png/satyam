@@ -27,12 +27,12 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
-    const hearts = Array.from({ length: 10 }).map((_, i) => ({
+    const hearts = Array.from({ length: 15 }).map((_, i) => ({
       id: i,
       x: `${Math.random() * 100}vw`,
       size: Math.random() * 20 + 10,
-      duration: 10 + Math.random() * 10,
-      delay: i * 2,
+      duration: 8 + Math.random() * 8,
+      delay: i * 0.5,
     }));
     setBackgroundHearts(hearts);
   }, []);
@@ -46,9 +46,14 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
       });
     } else {
       setIsRejected(true);
+      
+      // Play rejection sound
       if (errorAudioRef.current) {
         errorAudioRef.current.currentTime = 0;
-        errorAudioRef.current.play().catch(e => console.log("Audio failed", e));
+        errorAudioRef.current.play().catch(() => {
+          // Playback might be blocked by browser if not triggered by interaction
+          // but handleVerify is triggered by button click/enter key
+        });
       }
       
       // Reset after 4 seconds
@@ -65,10 +70,11 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-background p-6 overflow-hidden">
-      {/* Hidden error audio */}
+      {/* Hidden error audio - using a more reliable buzzer sound */}
       <audio 
         ref={errorAudioRef} 
-        src="https://cdn.pixabay.com/audio/2022/03/10/audio_c8c8a7351d.mp3" 
+        src="https://cdn.pixabay.com/audio/2022/03/24/audio_731478147d.mp3" 
+        preload="auto"
       />
 
       <AnimatePresence mode="wait">
@@ -119,7 +125,6 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
             exit={{ opacity: 0, y: -20 }}
             className="max-w-md w-full space-y-8 text-center relative z-10"
           >
-            {/* Decorative background elements */}
             <div className="absolute inset-0 pointer-events-none opacity-20 -z-10">
               <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/30 blur-[120px]" />
               <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-accent/30 blur-[120px]" />

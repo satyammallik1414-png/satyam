@@ -1,7 +1,8 @@
+
 "use client";
 
 import { useState, useRef } from "react";
-import { Music, Music2, Volume2, VolumeX } from "lucide-react";
+import { Music, Music2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -14,7 +15,9 @@ export function AudioToggle() {
     if (isPlaying) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play().catch(e => console.log("Audio play failed", e));
+      audioRef.current.play().catch(e => {
+        // Fallback for browser blocking auto-play
+      });
     }
     setIsPlaying(!isPlaying);
   };
@@ -24,7 +27,8 @@ export function AudioToggle() {
       <audio
         ref={audioRef}
         loop
-        src="https://cdn.pixabay.com/audio/2021/08/04/audio_097d620a23.mp3"
+        preload="auto"
+        src="https://cdn.pixabay.com/audio/2022/04/12/audio_03d9735d56.mp3"
       />
       <motion.div
         whileHover={{ scale: 1.1 }}
@@ -71,7 +75,6 @@ export function AudioToggle() {
         </Button>
       </motion.div>
       
-      {/* Tooltip hint */}
       <AnimatePresence>
         {!isPlaying && (
           <motion.div
