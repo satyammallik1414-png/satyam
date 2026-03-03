@@ -65,7 +65,7 @@ export default function Promise() {
           className="pt-12"
         >
           <Link href="/">
-            <Button variant="outline" className="rounded-full gap-2 border-white/20 text-white/60 hover:text-white hover:border-white/40">
+            <Button variant="outline" className="rounded-full gap-2 border-primary/30 text-primary/70 hover:text-primary hover:border-primary/60 hover:bg-primary/10">
               <Home size={18} /> Back to Start
             </Button>
           </Link>
