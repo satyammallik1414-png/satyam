@@ -2,7 +2,6 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import { PasswordGate } from "@/components/PasswordGate";
 
 export const metadata: Metadata = {
   title: 'Galu, Baby | Happy Birthday My Love',
@@ -26,9 +25,7 @@ export default function RootLayout({
           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/20 blur-[120px]" />
           <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-accent/20 blur-[120px]" />
         </div>
-        <PasswordGate>
-          {children}
-        </PasswordGate>
+        {children}
         <Toaster />
       </body>
     </html>
