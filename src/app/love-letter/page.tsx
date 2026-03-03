@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { TypewriterText } from "@/components/TypewriterText";
 import { Button } from "@/components/ui/button";
-import { Camera, Sparkles } from "lucide-react";
+import { Camera, Sparkles, CalendarHeart } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function LoveLetter() {
@@ -14,13 +14,15 @@ export default function LoveLetter() {
 
   const letterContent = `My Dearest,
 
+I couldn't wait until August 10th to start celebrating the beautiful soul that you are. One single day simply isn't enough to honor the person who makes every second of my life feel like a gift.
+
 From the moment we first met, my life has been painted with colors I never knew existed. You are the gentle melody in my chaos, the warmth in my winters, and the bright morning sun that makes every day worth waking up for.
 
-Today isn't just a celebration of the day you were born; it's a celebration of every smile you've shared, every laugh that has echoed in my heart, and every dream we've started building together. 
+This letter is the first step in our early celebration. I want you to feel loved not just on your birthday, but in every moment leading up to it. I promise to hold your hand through every sunset and be your strength in every storm. You aren't just my girlfriend; you're my best friend, my soulmate, and my home.
 
-I promise to hold your hand through every sunset and be your strength in every storm. You aren't just my girlfriend; you're my best friend, my soulmate, and my home.
+Consider this my advance promise: I will be right there with you when the clock strikes midnight on the 10th, but until then, I'll be reminding you every day why you mean the world to me.
 
-Happy Birthday, my love. May this year be as beautiful as your heart.
+Happy Early Birthday, my love. Let the countdown to your special day begin.
 
 Forever yours.`;
 
@@ -53,6 +55,15 @@ Forever yours.`;
       </div>
 
       <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-8 flex items-center gap-2 text-primary font-medium bg-primary/10 px-6 py-2 rounded-full border border-primary/20 backdrop-blur-sm shadow-sm"
+      >
+        <CalendarHeart size={18} />
+        <span>Starting your celebration early...</span>
+      </motion.div>
+
+      <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
@@ -63,7 +74,7 @@ Forever yours.`;
         </div>
         
         <div className="font-serif text-lg sm:text-xl text-slate-700 space-y-6">
-          <TypewriterText text={letterContent} delay={40} />
+          <TypewriterText text={letterContent} delay={35} />
         </div>
 
         <div className="mt-12 flex justify-end">
