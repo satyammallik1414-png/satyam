@@ -1,0 +1,41 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "mem-1",
+      "description": "Our first date at the cafe",
+      "imageUrl": "https://picsum.photos/seed/love1/800/600",
+      "imageHint": "couple cafe"
+    },
+    {
+      "id": "mem-2",
+      "description": "That sunset walk on the beach",
+      "imageUrl": "https://picsum.photos/seed/love2/800/600",
+      "imageHint": "beach sunset"
+    },
+    {
+      "id": "mem-3",
+      "description": "Watching movies on a rainy night",
+      "imageUrl": "https://picsum.photos/seed/love3/800/600",
+      "imageHint": "home cozy"
+    },
+    {
+      "id": "mem-4",
+      "description": "Our first trip together",
+      "imageUrl": "https://picsum.photos/seed/love4/800/600",
+      "imageHint": "travel couple"
+    },
+    {
+      "id": "mem-5",
+      "description": "The time we cooked dinner",
+      "imageUrl": "https://picsum.photos/seed/love5/800/600",
+      "imageHint": "cooking couple"
+    },
+    {
+      "id": "mem-6",
+      "description": "Dancing in the living room",
+      "imageUrl": "https://picsum.photos/seed/love6/800/600",
+      "imageHint": "dancing couple"
+    }
+  ]
+}
